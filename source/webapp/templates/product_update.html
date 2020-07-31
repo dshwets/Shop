@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+
+{% block title %}Update{% endblock %}
+
+{% block menu %}
+      <li class="nav-item active">
+        <a class="nav-link" href="{% url 'watch_product' product.pk %}"> Cancel <span class="sr-only">(current)</span></a>
+      </li>
+{% endblock %}
+
+{% block content %}
+    <h1>Update Product</h1>
+
+    {% url "update_product" product.pk as action_url %}
+    {% include 'partial/form.html' with action_url=action_url form_method='post' button_text='Update' %}
+{% endblock %}

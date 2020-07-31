@@ -1,0 +1,22 @@
+{% extends 'base.html' %}
+
+{% block title %}{% endblock %}
+{% block menu %}
+      <li class="nav-item active">
+        <a class="nav-link" href="{% url 'create_product' %}"> Create product <span class="sr-only">(current)</span></a>
+      </li>
+{% endblock %}
+
+{% block content %}
+    <h1>Perfect Shop</h1>
+    {% for product in products %}
+        {% if product.amount > 0 %}
+
+            <h3><a href="{% url 'watch_product' product.pk %}">{{ product.name }}</a></h3>
+            <p>Категория: ({{ product.category }} | {{ product.get_category_display }})</p>
+            <p>Qty:{{ product.amount }} | Price: {{ product.price }}</p>
+            <p><a href="{% url 'update_product' product.pk %}">Update</a> |||
+            <a href="{% url 'product_delete' product.pk %}">Delete</a></p>
+        {% endif %}
+    {% endfor %}
+{% endblock %}

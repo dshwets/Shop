@@ -1,0 +1,24 @@
+{% extends 'base.html' %}
+
+{% block title %}Delete{% endblock %}
+
+{% block menu %}
+      <li class="nav-item active">
+        <a class="nav-link" href="{% url 'create_product' %}"> Create new Product <span class="sr-only">(current)</span></a>
+      </li>
+      <li class="nav-item active">
+        <a class="nav-link" href="{% url 'watch_product' product.pk %}"> Cancel <span class="sr-only">(current)</span></a>
+      </li>
+{% endblock %}
+
+{% block content %}
+    <h1>Вы уверены, что хотите удалить этот товар из базы : <br> "{{ product.name }}"?</h1>
+    <p> Qty:{{ product.amount }}  ||| Price:{{ product.price }}</p>
+    <form action="{% url "product_delete" product.pk %}" method="post">
+        {% csrf_token %}
+        <p><input type="submit" value="Да"></p>
+        <p><a href="{% url 'watch_product' product.pk %}">Отмена</a></p>
+    </form>
+    <h3>Описание товара: </h3>
+    <p>{{ product.description }}</p>
+{% endblock %}
