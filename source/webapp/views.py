@@ -7,6 +7,9 @@ from webapp.forms import ProductForm
 def index_view(request):
     if request.method == 'GET':
         products = Product.objects.all().order_by('category', 'name')
+        search_value = request.GET.get('search')
+        if search_value:
+            products = products.filter(name=search_value)
         context = {
             'products': products
         }
