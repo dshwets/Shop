@@ -1,7 +1,6 @@
 from django.core.validators import MinValueValidator
 from django.db import models
 
-
 DEFAULT_CATEGORY = 'other'
 CATEGORY_CHOICES = (
     (DEFAULT_CATEGORY, 'Разное'),
@@ -26,3 +25,8 @@ class Product(models.Model):
     class Meta:
         verbose_name = 'Товар'
         verbose_name_plural = 'Товары'
+
+
+class Cart(models.Model):
+    good = models.ManyToManyField('webapp.Product', verbose_name='Товары', related_name='cart')
+    qty = models.IntegerField(verbose_name='Количество', validators=[MinValueValidator(0), ])
