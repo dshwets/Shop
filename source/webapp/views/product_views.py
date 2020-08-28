@@ -1,11 +1,10 @@
 from django.db.models import Q
 from django.shortcuts import render, redirect, get_object_or_404, reverse
-from django.http import HttpResponseNotAllowed
 from django.urls import reverse_lazy
 from django.views.generic import ListView, CreateView, DeleteView, DetailView, UpdateView
 
 from webapp.models import Product
-from webapp.forms import ProductForm,SimpleSeachForm
+from webapp.forms import ProductForm, SimpleSeachForm, CartForm
 from webapp.contextprocessors import search_form
 
 
@@ -47,12 +46,11 @@ class SearchView(ListView):
             for field in self.search_fields:
                 kwargs = {field: search_value}
                 query = query | Q(**kwargs)
-
         return query
 
 
 class IndexView(SearchView):
-    template_name = 'index.html'
+    template_name = 'Products/index.html'
     model = Product
     context_object_name = 'products'
     paginate_by = 5
@@ -60,10 +58,15 @@ class IndexView(SearchView):
     search_fields = ['name__icontains', 'description__icontains']
     ordering = ['category', 'name']
 
+    def get_context_data(self, *, object_list=None, **kwargs):
+        context = super().get_context_data()
+        context['form'] = CartForm
+        return context
+
 
 class CreateProduct(CreateView):
     model = Product
-    template_name = 'product_create.html'
+    template_name = 'Products/product_create.html'
     form_class = ProductForm
 
     def get_success_url(self):
@@ -72,18 +75,18 @@ class CreateProduct(CreateView):
 
 class DeleteProductView(DeleteView):
     model = Product
-    template_name = 'product_delete.html'
+    template_name = 'Products/product_delete.html'
     success_url = reverse_lazy('index')
 
 
 class WatchProductView(DetailView):
     model = Product
-    template_name = 'product_view.html'
+    template_name = 'Products/product_view.html'
 
 
 class UpdateProductView(UpdateView):
     model = Product
-    template_name = 'product_update.html'
+    template_name = 'Products/product_update.html'
     form_class = ProductForm
 
     def get_success_url(self):

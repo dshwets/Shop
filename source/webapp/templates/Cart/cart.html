@@ -1,0 +1,43 @@
+{% extends 'base.html' %}
+
+{% block title %}{% endblock %}
+{% block menu %}
+      <li class="nav-item active">
+        <a class="nav-link" href="{% url 'index' %}"> Back to Shop <span class="sr-only">(current)</span></a>
+      </li>
+{% endblock %}
+
+
+
+{% block content %}
+    <h1>Your Cart</h1>
+<table class="table">
+  <thead>
+    <tr>
+        <th scope="col">Name</th>
+        <th scope="col">Qantoty</th>
+        <th scope="col">Price</th>
+        <th scope="col">Total</th>
+        <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for product in cart.all %}
+        {% if product.good.amount > 0 %}
+    <tr>
+        <th scope="row"><a href="{% url 'watch_product' product.good.pk %}">{{ product.good.name }}</a></th>
+        <td>{{ product.good.price }}</td>
+        <td>{{product.qty}}</td>
+        <td>{{product.total}}</td>
+        <td><a href="{% url 'delete_cart' product.pk %}">Удалить</a></td>
+    </tr>
+          {% endif %}
+    {% endfor %}
+  </tbody>
+</table>
+    <p>Total on cart: {{ total_summ.tota }}</p>
+
+
+    {% include 'partial/pagination.html' %}
+{% endblock %}
+

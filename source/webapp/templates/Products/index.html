@@ -5,6 +5,9 @@
       <li class="nav-item active">
         <a class="nav-link" href="{% url 'create_product' %}"> Create product <span class="sr-only">(current)</span></a>
       </li>
+          <li class="nav-item active">
+        <a class="nav-link" href="{% url 'watch_cart' %}"> Go to Cart <span class="sr-only">(current)</span></a>
+      </li>
 {% endblock %}
 
 
@@ -19,6 +22,8 @@
             <p>Qty:{{ product.amount }} | Price: {{ product.price }}</p>
             <p><a href="{% url 'update_product' product.pk %}">Update</a> |||
             <a href="{% url 'product_delete' product.pk %}">Delete</a></p>
+            {% url "add_to_cart" product.pk  as action_url %}
+            {% include 'partial/form.html' with  action_url=action_url button_text='Добавить в корзину' form_method='post' %}
         {% endif %}
     {% endfor %}
     {% include 'partial/pagination.html' %}

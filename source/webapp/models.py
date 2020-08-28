@@ -28,5 +28,5 @@ class Product(models.Model):
 
 
 class Cart(models.Model):
-    good = models.ManyToManyField('webapp.Product', verbose_name='Товары', related_name='cart')
+    good = models.ForeignKey('webapp.Product', verbose_name='Товары', related_name='cart', on_delete=models.DO_NOTHING)
     qty = models.IntegerField(verbose_name='Количество', validators=[MinValueValidator(0), ])
