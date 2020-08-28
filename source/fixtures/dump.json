@@ -50,7 +50,7 @@
     "name": "\u041b\u043e\u0434\u043a\u0430 \u0440\u0435\u0437\u0438\u043d\u043e\u0432\u0430\u044f",
     "description": "\u041e\u0447\u0435\u043d\u044c \u043a\u0440\u0443\u0442\u0430\u044f \u043b\u043e\u0434\u043a\u0430, \u043c\u043e\u0436\u043d\u043e \u0433\u043e\u043d\u044f\u0442\u044c \u043f\u043e \"\u0410\u043b\u0430-\u0410\u0440\u0447\u0435!\"",
     "category": "household",
-    "amount": 256,
+    "amount": 43,
     "price": "5456.00"
   }
 },
@@ -88,11 +88,83 @@
   }
 },
 {
+  "model": "webapp.product",
+  "pk": 16,
+  "fields": {
+    "name": "\u0412\u043a\u0443\u0441\u043d\u044b\u0435 \u041c\u0430\u0440\u043c\u0435\u043b\u0430\u0434\u043a\u0438",
+    "description": "\u041d\u0435\u0432\u0435\u0440\u043e\u044f\u0442\u043d\u043e \u0440\u0435\u0434\u043a\u0438\u0439 \u0438 \u0432 \u043a\u0443\u0441\u043d\u044b\u0439 \u043c\u0430\u0440\u043c\u0435\u043b\u0430\u0434 !",
+    "category": "other",
+    "amount": 1,
+    "price": "550.00"
+  }
+},
+{
+  "model": "webapp.cart",
+  "pk": 8,
+  "fields": {
+    "good": 11,
+    "qty": 40
+  }
+},
+{
+  "model": "webapp.cart",
+  "pk": 10,
+  "fields": {
+    "good": 14,
+    "qty": 5
+  }
+},
+{
+  "model": "webapp.cart",
+  "pk": 11,
+  "fields": {
+    "good": 12,
+    "qty": 3
+  }
+},
+{
+  "model": "webapp.orders",
+  "pk": 26,
+  "fields": {
+    "username": "test 1",
+    "phone": "test 3",
+    "adress": "test 2",
+    "created_at": "2020-08-28T17:42:07.027Z"
+  }
+},
+{
+  "model": "webapp.productorder",
+  "pk": 10,
+  "fields": {
+    "order": 26,
+    "product": 8,
+    "qty": 40
+  }
+},
+{
+  "model": "webapp.productorder",
+  "pk": 11,
+  "fields": {
+    "order": 26,
+    "product": 10,
+    "qty": 5
+  }
+},
+{
+  "model": "webapp.productorder",
+  "pk": 12,
+  "fields": {
+    "order": 26,
+    "product": 11,
+    "qty": 3
+  }
+},
+{
   "model": "auth.user",
   "pk": 1,
   "fields": {
     "password": "pbkdf2_sha256$150000$NAMADa9UizSE$/K3WatvdPcI5yo8EI9+rjgUzEEadx6QsTyQ/JqGHh+c=",
-    "last_login": "2020-07-30T14:07:31.651Z",
+    "last_login": "2020-08-27T18:12:24.208Z",
     "is_superuser": true,
     "username": "admin",
     "first_name": "",

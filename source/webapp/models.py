@@ -30,3 +30,16 @@ class Product(models.Model):
 class Cart(models.Model):
     good = models.ForeignKey('webapp.Product', verbose_name='Товары', related_name='cart', on_delete=models.DO_NOTHING)
     qty = models.IntegerField(verbose_name='Количество', validators=[MinValueValidator(0), ])
+
+
+class Orders(models.Model):
+    username = models.CharField(max_length=100, verbose_name='Имя пользователя')
+    phone = models.CharField(max_length=20, verbose_name='Телефон')
+    adress =  models.CharField(max_length=100, verbose_name='Адресс')
+    created_at =models.DateTimeField(auto_now_add=True, verbose_name='Дата и время создания')
+
+
+class ProductOrder(models.Model):
+    order=models.ForeignKey('webapp.Orders', verbose_name='Номер заказа', related_name='ProductOrders', on_delete=models.CASCADE)
+    product =models.ForeignKey('webapp.Cart', verbose_name='Номер заказа', related_name='OrderProducts', on_delete=models.CASCADE)
+    qty = models.IntegerField(verbose_name='Количество', validators=[MinValueValidator(0), ])

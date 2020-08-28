@@ -1,7 +1,7 @@
 from django import forms
 from django.core.validators import MinValueValidator
 
-from .models import CATEGORY_CHOICES, DEFAULT_CATEGORY, Product, Cart
+from .models import CATEGORY_CHOICES, DEFAULT_CATEGORY, Product, Cart, Orders
 
 
 class DateInput(forms.DateInput):
@@ -29,3 +29,9 @@ class ProductForm(forms.ModelForm):
 
 class CartForm(forms.Form):
     qty = forms.IntegerField(required=True, initial=1, label='Количество', min_value=0)
+
+
+class InformationForm(forms.ModelForm):
+    class Meta:
+        model = Orders
+        fields = ['username', 'adress', 'phone']

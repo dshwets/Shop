@@ -37,6 +37,9 @@
 </table>
     <p>Total on cart: {{ total_summ.tota }}</p>
 
+    {% url "make_order" as action_url %}
+    {% include 'partial/form.html' with  action_url=action_url button_text='Оформить заказ' form_method='post' %}
+
 
     {% include 'partial/pagination.html' %}
 {% endblock %}

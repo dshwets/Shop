@@ -5,11 +5,12 @@ from django.urls import reverse_lazy
 from django.views.generic import ListView, CreateView, DeleteView, DetailView, UpdateView, View
 from django.core.exceptions import ObjectDoesNotExist
 
-from webapp.models import Product, Cart
-from webapp.forms import ProductForm, SimpleSeachForm, CartForm
+from webapp.models import Product, Cart, Orders, ProductOrder
+from webapp.forms import ProductForm, SimpleSeachForm, CartForm, InformationForm
 
 
 class WatchCart(ListView):
+
     model = Cart
     template_name = 'Cart/cart.html'
     context_object_name = 'cart'
@@ -22,6 +23,7 @@ class WatchCart(ListView):
     def get_context_data(self, *, object_list=None, **kwargs):
         context = super().get_context_data()
         context['total_summ'] = context['cart'].aggregate(tota=Sum('total'))
+        context['form'] = InformationForm
         return context
 
 
@@ -59,3 +61,21 @@ class DeleteCart(DeleteView):
 
     def get_success_url(self):
         return reverse('index')
+
+
+class CreateOrder(CreateView):
+    model = Orders
+    form_class = InformationForm
+
+    def get_success_url(self):
+        return reverse('index')
+
+    def form_valid(self, form):
+        super().form_valid(form)               ## Это нужно для того, что бы получить pk Ордера
+        for product in Cart.objects.all():      ##Возможно наговнокодил, но вроде пашет норм )
+            ProductOrder.objects.create(order=self.object, qty=product.qty, product=product)
+            edited_product = Product.objects.get(pk=product.good.pk)
+            edited_product.amount -= product.qty
+            edited_product.save()
+            product.delete()
+        return super().form_valid(form)

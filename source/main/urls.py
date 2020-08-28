@@ -17,7 +17,7 @@ from django.contrib import admin
 from django.urls import path
 
 from webapp.views import IndexView, WatchProductView, CreateProduct, \
-    UpdateProductView, DeleteProductView,WatchCart,AddProductToCart,DeleteCart
+    UpdateProductView, DeleteProductView,WatchCart,AddProductToCart,DeleteCart, CreateOrder
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -29,5 +29,6 @@ urlpatterns = [
 
     path('cart/', WatchCart.as_view(), name='watch_cart'),
     path('cart/add/<int:pk>/', AddProductToCart.as_view(), name='add_to_cart'),
-    path('cart/delete/<int:pk>/',DeleteCart.as_view(), name = 'delete_cart')
+    path('cart/delete/<int:pk>/',DeleteCart.as_view(), name = 'delete_cart'),
+    path('cart/make_cart', CreateOrder.as_view(), name = 'make_order'),
 ]
